@@ -10,7 +10,7 @@ pipeline {
         stage('Deploy in Dev') {
             when {
                 expression {
-                    params.MyAccount = 'Dev'
+                    params.MyAccount == 'Dev'
                 }
             }
                 steps {
@@ -21,7 +21,7 @@ pipeline {
         stage('Deploy in QA') {
             when {
                 expression {
-                    params.MyAccount = 'QA'
+                    params.MyAccount == 'QA'
                 }
             }
                 steps {
@@ -42,10 +42,10 @@ pipeline {
 def getAccountNumber(String AcctName) {
     if (AcctName == 'Dev') {
         sh "echo Hello From Function name, FYI Dev AWS Account ID"
-        sh "echo DevID=8380997850"
+        sh "echo DevID = 8380997850"
     }
     else (AcctName == 'QA') {
         sh "echo Hello From Function name, FYI QA AWS Account ID"
-        sh "echo DevID=7757037274"
+        sh "echo DevID = 7757037274"
     }
 }
