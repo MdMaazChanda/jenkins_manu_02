@@ -1,40 +1,17 @@
 pipeline {
     agent any 
-    environment {
-        /*this is custom varible */
-        dev_acct = "8380997850"
-        qa_acct = "7757037274"
-    }
-    parameters {
-        choice(name:'Account', choices: ['Dev','QA'], description:'Pick AWS Account')
-    }
     stages {
-        stage('Deploy in Dev') {
-            when {
-                expression {
-                    params.Account == 'Dev'
+        satge ('User Input Example') {
+            input {
+                message "HI Press Something to Proceed Further"
+                ok "Proceed"
+                submitter "maaz,nusaiba"
+                parameters {
+                    string(name: 'Person', defaultvValue:'MaazNusaiba', description: 'Who Should I say Hello To')
                 }
             }
-                steps {
-                    sh "echo Building project in Dev Acct ${env.dev_acct}"
-                }
-        }
-
-        stage ('Deploy in QA') {
-            when {
-                expression {
-                    params.Account == 'QA'
-                }
+            steps {
+                echo "Hello, ${Person}, nice to have you in mey life"
             }
-                steps {
-                    sh "echo Building project in QA Acct ${env.qa_acct}"
-                }
         }
     }
-    post {
-        always {
-            echo 'Deleting Worksapce'
-            deleteDir()
-        }
-    }
-}
