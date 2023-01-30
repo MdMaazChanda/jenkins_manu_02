@@ -4,7 +4,7 @@ pipeline {
         my_account = "${params.MyAccount}"
     }
     parameters {
-        choice(name:'MyAccount', choices:['Dev','QA'], description:'Pick AWS Account'])
+        choice(name:'MyAccount', choices:['Dev','QA'], description:'Pick AWS Account')
     }
     stages {
         stage('Deploy in Dev') {
