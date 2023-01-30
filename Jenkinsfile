@@ -43,8 +43,9 @@ def getAccountNumber(String AcctName) {
     if (AcctName == 'Dev') {
         sh "echo Hello From Function name, FYI Dev AWS Account ID"
         sh "echo DevID = 8380997850"
-    } else (AcctName == 'QA') {
+    } else
         sh "echo Hello From Function name, FYI QA AWS Account ID"
         sh "echo DevID = 7757037274"
     }
 }
+
