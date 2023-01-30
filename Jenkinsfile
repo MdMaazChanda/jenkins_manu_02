@@ -1,17 +1,17 @@
 pipeline {
-    agent any 
+    agent any
     stages {
-        satge ('User Input Example') {
+        stage('Example') {
             input {
-                message "HI Press Something to Proceed Further"
-                ok "Proceed"
-                submitter "maaz,nusaiba"
+                message "Should we continue?"
+                ok "Proceed."
+                submitter "alice,bob"
                 parameters {
-                    string(name: 'Person', defaultvValue:'MaazNusaiba', description: 'Who Should I say Hello To')
+                    string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
                 }
             }
             steps {
-                echo "Hello, ${Person}, nice to have you in mey life"
+                echo "Hello, ${PERSON}, nice to meet you."
             }
         }
     }
