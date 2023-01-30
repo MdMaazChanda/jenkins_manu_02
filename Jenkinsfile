@@ -14,4 +14,5 @@ pipeline {
                 echo "Hello, ${Person}, nice to have you in mey life"
             }
         }
+    }
 }     
