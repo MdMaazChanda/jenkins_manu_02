@@ -14,9 +14,5 @@ pipeline {
                 echo "Hello, ${PERSON}, nice to meet you."
             }
         }
-<<<<<<< HEAD
-}     
-=======
     }
 }
->>>>>>> 7144a35a14fe11a6a3920846bcfda2f3c9133e26
