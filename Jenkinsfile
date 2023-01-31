@@ -3,7 +3,7 @@ pipeline {
     environment {
         registery_url = "https://hub.docker.com/"
         registery = "maaz0816/dock_build_publish"
-        registeryCredentials = "03_dockerCreds"
+        registeryCredentials = '03_dockerCreds'
     }
     stages {
         stage ('ImageBuilding') {
