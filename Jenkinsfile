@@ -15,7 +15,7 @@ pipeline {
                 script {
                     def applicn = docker.build(tag_commit_id)
                     docker.withRegistery( registery_endpoint, registeryCredentials) {
-                        app.push()
+                        applicn.push()
                     }
                 }
             }
