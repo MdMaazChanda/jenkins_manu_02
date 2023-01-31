@@ -1,50 +1,35 @@
 pipeline {
-    agent any 
+    agent any
     environment {
-        my_account = "${params.MyAccount}"
-    }
-    parameters {
-        choice(name:'MyAccount', choices:['Dev','QA'], description:'Pick AWS Account')
+        registery_url = "https://hub.docker.com/"
+        registery = "maaz0816/dock_build_publish"
+        registeryCredentials = "03_dockerCreds"
     }
     stages {
-        stage('Deploy in Dev') {
-            when {
-                expression {
-                    params.MyAccount == 'Dev'
+        stage ('ImageBuilding') {
+            environment {
+                registery_endpoint = "${env.registery_url}" + "${env.registery}"
+                tag_commit_id = "${env.registery}" + ":$GIT_COMMIT"
+            }
+            steps {
+                script {
+                    def applicn = docker.build(tag_commit_id)
+                    docker.withRegistery( registery_endpoint, registeryCredentials) {
+                        app.push()
+                    }
                 }
             }
-                steps {
-                    sh "echo Building the Projects in Dev AWS Account"
-                    getAccountNumber(env.my_account)
-                }
         }
-        stage('Deploy in QA') {
-            when {
-                expression {
-                    params.MyAccount == 'QA'
-                }
+        stage('Remove Unused Images') {
+            steps {
+                sh "docker rmi $registery:$GIT_COMMIT"
             }
-                steps {
-                    sh "echo Building the Projects in QA AWS Account"
-                    getAccountNumber(env.my_account)
-                }
         }
-        
     }
     post {
         always {
-            echo 'Deleting Workspace'
+            echo "Deleting Workspace"
             deleteDir()
         }
-    }
-}
-
-def getAccountNumber(String AcctName) {
-    if (AcctName == 'Dev') {
-        sh "echo Hello From Function name, FYI Dev AWS Account ID"
-        sh "echo DevID = 8380997850"
-    } else {
-        sh "echo Hello From Function name, FYI QA AWS Account ID"
-        sh "echo DevID = 7757037274"
     }
 }
